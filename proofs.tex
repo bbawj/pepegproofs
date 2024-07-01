@@ -1,0 +1,43 @@
+\documentclass{report}
+\usepackage{amsmath}
+\title{Pepegproofs}
+\begin{document}
+  \maketitle
+  \section{Preface}
+  I am usually alright not knowing how everything works. But when a statement is presented so simply in front of me and yet the answer is so unintuitive, I can't help but get sucked into a swirling black hole of wanting to understand why it is true. However, I am not very good at math, and I am lazy. The following are pepeg proofs to myself that I know why some things work.
+
+  \section{Euclid's algorithm or something}
+  This was not the first time. Euclid was dropped in SICP and CLRS, and in both times, I couldn't understand why the heck it worked, which entirely sidetracked any progress on them. Euclid's algorithm or something is a procedure to obtain the greatest common divisor (GCD) between 2 numbers. For example, $gcd(16, 28) = 4$.\\
+
+  The procedure is based on the observation that: $$gcd(a,b) = gcd(b,r)$$ where $r = a \% b$, which is the remainder of $a/b$. This is useful as it lets us define a recurrence relation which breaks down the procedure's inputs smaller and smaller: $$gcd(16,28) = gcd(16,12)\\ =gcd(12,4)\\=gcd(4,0)\\=4$$\\
+
+  I want to prove this somehow. Let's first prove to ourselves that there is some divisor of $r$ which is a divisor of a. Basically, there exists some number $d$ such that
+  \begin{align}
+    a = t_1d\\
+    b = t_2d\\
+    r = t_3d
+  \end{align}
+If we assume that this is not true, we can say that:
+  \begin{align}
+    r &= t_3d + c, 0 < c < d \\
+    r &= a - qb\\
+    r &= t_1d - qb\\
+    \intertext{Subtracting (4) from (6):}
+    0 &= t_4d - qb - c\\
+    t_4d &= qb + c\\
+    t_4d &= q(t_2d) + c
+  \end{align}
+But since $0 < c < d$, there is a contradiction which means the previous statement is true. Now let's prove that this number $d$ will be the GCD of a and b.\\
+
+Let's say that $d$ is \textit{not} the GCD. This means that there is some other $d'$ such that $d' > d$ but also this $d'$ does not divide r.\\
+\begin{align}
+  a &= k_1d'\\
+  b &= k_2d'\\
+  r &= k_3d' + c, 0 < c < d'
+  \intertext{Substituting these into (5):}
+  k_3d'+c&=k_1d' - q(k_2d')\\
+  k_3d'+c&=k_4d'\\
+  c&=k_5d'
+\end{align}
+  However, $0 < c < d'$ so equation (15) cannot be true. With that we proved that a divisor of b and r is a divisor of a and b. We also proved that this divisor should be the greatest.
+\end{document}
